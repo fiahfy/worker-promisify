@@ -1,22 +1,29 @@
 import 'jsdom-worker'
-import AsyncWorker from '../src'
+import promisify from '../src'
 
-describe('async worker', () => {
+const code = `
+  onmessage = ({ data }) => {
+    if (isNaN(data)) {
+      throw new Error('Not a Number')
+    }
+    postMessage(data * 2)
+  }
+`
+const worker = new global.Worker(URL.createObjectURL(new global.Blob([code])))
+const promiseWorker = promisify(worker)
+
+describe('promisify worker', () => {
   test('should work', async () => {
-    const code = `onmessage = (e) => postMessage(e.data * 2)`
-    const worker = new global.Worker(URL.createObjectURL(new global.Blob([code])))
-    const asyncWorker = new AsyncWorker(worker)
-    const e = await asyncWorker.postMessage(1)
-    expect(e.data).toBe(2)
+    const e = await promiseWorker.postMessage(2)
+    expect(e.data).toBe(4)
   })
 
   test('should work with error', async () => {
-    global.console = {
-      error: jest.fn()
-    }
-    const code = `onmessage = (e) => throw new Error()`
-    const worker = new global.Worker(URL.createObjectURL(new global.Blob([code])))
-    const asyncWorker = new AsyncWorker(worker)
-    expect(asyncWorker.postMessage(1)).rejects.toThrow()
+    await expect(promiseWorker.postMessage(NaN)).rejects.toThrowError('Not a Number')
+  })
+
+  test('terminate should work', () => {
+    // not supported on jsdom-worker
+    expect(() => promiseWorker.terminate()).toThrowError('Not Supported')
   })
 })

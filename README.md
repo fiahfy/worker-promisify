@@ -9,12 +9,12 @@ npm install @fiahfy/worker-promisify
 
 ## Usage
 ```
-import AsyncWorker from '@fiahfy/worker-promisify'
+import promisify from '@fiahfy/worker-promisify'
 
 const worker = new Worker('worker.js')
-const asyncWorker = new AsyncWorker(worker)
+const promiseWorker = promisify(worker)
 
-asyncWorker.postMessage('ping').then((e) => {
+promiseWorker.postMessage('ping').then((e) => {
   console.log(e.data)
 })
 ```

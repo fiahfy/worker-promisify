@@ -1,23 +1,26 @@
-export default class AsyncWorker {
-  constructor (worker) {
-    this.worker = worker
-  }
-  postMessage (...args) {
-    return new Promise((resolve, reject) => {
-      try {
-        this.worker.onmessage = (e) => {
-          resolve(e)
-        }
-        this.worker.onerror = (e) => {
-          reject(e)
-        }
-        this.worker.postMessage(...args)
-      } catch (e) {
-        reject(e)
+export default (worker) => {
+  return new Proxy(worker, {
+    get (target, name) {
+      switch (name) {
+        case 'postMessage':
+          return (...args) => {
+            return new Promise((resolve, reject) => {
+              try {
+                target.onmessage = (e) => {
+                  resolve(e)
+                }
+                target.onerror = (e) => {
+                  reject(e)
+                }
+                target.postMessage(...args)
+              } catch (e) {
+                reject(e)
+              }
+            })
+          }
+        default:
+          return target[name]
       }
-    })
-  }
-  terminate () {
-    this.worker.terminate()
-  }
+    }
+  })
 }

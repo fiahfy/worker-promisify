@@ -5,7 +5,7 @@ export default {
   output: {
     file: 'index.js',
     format: 'umd',
-    name: 'AsyncWorker'
+    name: 'promisifyWorker'
   },
   plugins: [
     babel({

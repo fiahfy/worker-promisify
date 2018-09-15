@@ -33,7 +33,7 @@
   ],
   "homepage": "https://github.com/fiahfy/worker-promisify",
   "keywords": [
-    "async",
+    "promisify",
     "worker"
   ],
   "license": "MIT",
