@@ -8,7 +8,7 @@ npm install @fiahfy/worker-promisify
 ```
 
 ## Usage
-```
+```js
 import promisify from '@fiahfy/worker-promisify'
 
 const worker = new Worker('worker.js')
