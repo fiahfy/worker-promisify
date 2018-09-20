@@ -9,20 +9,32 @@ const code = `
     postMessage(data * 2)
   }
 `
-const worker = new global.Worker(URL.createObjectURL(new global.Blob([code])))
+const worker = new Worker(URL.createObjectURL(new Blob([code])))
+
+describe('promisify', () => {
+  test('should work', () => {
+    const promiseWorker = promisify(worker)
+    expect(promiseWorker).toBeInstanceOf(Worker)
+  })
+
+  test('should throw error if not worker', () => {
+    expect(() => promisify({})).toThrowError(TypeError)
+  })
+})
+
 const promiseWorker = promisify(worker)
 
-describe('promisify worker', () => {
+describe('promise worker', () => {
   test('should work', async () => {
     const e = await promiseWorker.postMessage(2)
     expect(e.data).toBe(4)
   })
 
-  test('should work with error', async () => {
+  test('should work on reject', async () => {
     await expect(promiseWorker.postMessage(NaN)).rejects.toThrowError('Not a Number')
   })
 
-  test('terminate should work', () => {
+  test('should work terminate', () => {
     // not supported on jsdom-worker
     expect(() => promiseWorker.terminate()).toThrowError('Not Supported')
   })

@@ -1,4 +1,7 @@
 export default (worker) => {
+  if (!(worker instanceof Worker)) {
+    throw new TypeError('Cannot convert except Worker')
+  }
   return new Proxy(worker, {
     get (target, name) {
       switch (name) {
