@@ -29,7 +29,7 @@
     "rollup-plugin-babel": "^4.0.3"
   },
   "files": [
-    "src"
+    "dist"
   ],
   "homepage": "https://github.com/fiahfy/worker-promisify",
   "keywords": [
