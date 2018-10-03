@@ -31,7 +31,9 @@ describe('promise worker', () => {
   })
 
   test('should work on reject', async () => {
-    await expect(promiseWorker.postMessage(NaN)).rejects.toThrowError('Not a Number')
+    await expect(promiseWorker.postMessage(NaN)).rejects.toThrowError(
+      'Not a Number'
+    )
   })
 
   test('should work terminate', () => {

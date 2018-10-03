@@ -3,7 +3,7 @@ export default (worker) => {
     throw new TypeError('Cannot convert except Worker')
   }
   return new Proxy(worker, {
-    get (target, name) {
+    get(target, name) {
       switch (name) {
         case 'postMessage':
           return (...args) => {
