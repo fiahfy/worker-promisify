@@ -26,7 +26,7 @@ promiseWorker.postMessage('ping').then((e) => {
 })
 ```
 
-### Parallel execution
+### In Parallel
 `worker.js`
 ```js
 onmessage = ({ data: { key, data } }) => {
