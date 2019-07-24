@@ -25,6 +25,9 @@
     "rollup": "^1.17.0",
     "rollup-plugin-babel": "^4.0.3"
   },
+  "engines": {
+    "node": ">=8"
+  },
   "files": [
     "dist"
   ],
