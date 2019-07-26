@@ -2,10 +2,12 @@
 
 > Promisify postMessage for Web Worker.
 
+
 ## Installation
 ```
 npm install @fiahfy/worker-promisify
 ```
+
 
 ## Usage
 `worker.js`
