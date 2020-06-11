@@ -1,5 +1,5 @@
 import 'jsdom-worker'
-import promisify from '../src'
+import { promisify } from '../src'
 
 const code = `
   onmessage = ({ data }) => {
@@ -15,10 +15,6 @@ describe('promisify', () => {
   test('should work', () => {
     const promiseWorker = promisify(worker)
     expect(promiseWorker).toBeInstanceOf(Worker)
-  })
-
-  test('should throw error if not worker', () => {
-    expect(() => promisify({})).toThrowError(TypeError)
   })
 })
 
@@ -58,8 +54,8 @@ const delayWorker = promisify(worker2)
 describe('postMessage in parallel', () => {
   test('should work', async () => {
     const [e1, e2] = await Promise.all([
-      delayWorker.postMessage({ key: 'foo', data: 100 }),
-      delayWorker.postMessage({ key: 'bar', data: 200 })
+      delayWorker.parallelPostMessage('foo', 100),
+      delayWorker.parallelPostMessage('bar', 200),
     ])
     expect(e1.data).toBe(100)
     expect(e2.data).toBe(200)
@@ -68,8 +64,8 @@ describe('postMessage in parallel', () => {
   test('should work on reject', async () => {
     await expect(
       Promise.all([
-        delayWorker.postMessage({ key: 'foo', data: NaN }),
-        delayWorker.postMessage({ key: 'bar', data: 200 })
+        delayWorker.parallelPostMessage('foo', NaN),
+        delayWorker.parallelPostMessage('bar', 200),
       ])
     ).rejects.toThrowError(TypeError)
   })
