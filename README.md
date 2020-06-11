@@ -1,4 +1,6 @@
-# @fiahfy/worker-promisify
+# worker-promisify
+
+![badge](https://github.com/fiahfy/worker-promisify/workflows/Node.js%20Package/badge.svg)
 
 > Promisify postMessage for Web Worker.
 
