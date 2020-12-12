@@ -11,19 +11,16 @@
     "url": "https://github.com/fiahfy/worker-promisify/issues"
   },
   "devDependencies": {
-    "@types/jest": "^26.0.7",
-    "@types/node": "^14.0.26",
-    "@typescript-eslint/eslint-plugin": "^3.7.0",
-    "@typescript-eslint/parser": "^3.7.0",
-    "eslint": "^7.5.0",
-    "eslint-config-prettier": "^6.11.0",
-    "eslint-plugin-prettier": "^3.1.4",
-    "jest": "^26.1.0",
+    "@fiahfy/eslint-config": "^0.0.10",
+    "@types/jest": "^26.0.19",
+    "@types/node": "^14.14.12",
+    "eslint": "^7.15.0",
+    "jest": "^26.6.3",
     "jsdom-worker": "^0.2.1",
-    "node-fetch": "^2.6.0",
-    "prettier": "^2.0.5",
-    "ts-jest": "^26.1.3",
-    "typescript": "^3.9.7"
+    "node-fetch": "^2.6.1",
+    "prettier": "^2.2.1",
+    "ts-jest": "^26.4.4",
+    "typescript": "^4.1.3"
   },
   "engines": {
     "node": ">=8"
